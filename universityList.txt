@@ -1,0 +1,33 @@
+Angelo State University, 3.47, 1020, 7155
+Texas A&M University-Commerce, 3.23, 1050, 6283
+Lamar University, 3.19, 1075, 7630
+Midwestern State University, 3.44, 1070, 7304
+University of North Texas, 3.4, 1160, 8736
+The University of Texas-Pan American, 3.11, 1035, 5978
+Sam Houston State University, 3.23, 1060, 7328
+Texas State University-San Marcos, 3.28, 1100 , 8230
+Stephen F. Austin State University, 3.23, 1070, 7344
+Sul Ross State University, 3.17, 910, 5760
+Prairie View A&M University, 3.03, 930, 6664
+Tarleton State University, 3.14, 1030, 6248
+Texas A&M University, 3.55, 1250, 8480
+Texas A&M University-Kingsville, 3.35, 1020, 6640
+Texas Southern University, 2.84, 900, 7462
+Texas Tech University, 3.44, 1180, 9064
+Texas Woman's University, 3.08, 1040, 6960
+University of Houston, 3.53, 1220, 9211
+The University of Texas at Arlington, 3.32, 1120, 9152
+The University of Texas at Austin, 3.75, 1350, 9794
+The University of Texas at El Paso, 3.22, 1010, 6869
+West Texas A&M University, 3.2, 1040, 6207
+Texas A&M International University, 3.64, 1000, 6558
+The University of Texas at Dallas, 3.68, 1310, 11168
+The University of Texas of the Permian Basin, 3.21, 1040, 6508
+The University of Texas at San Antonio, 3.29, 1110, 8790
+Texas A&M University at Galveston, 3.41, 1170, 7578
+Texas A&M University-Corpus Christi, 3.25, 1050, 7083
+University of Texas at Tyler, 3.38, 1140, 6592
+University of Houston-Clear Lake, 3.38, 1090, 6508
+University of Houston-Downtown, 3.06, 980, 5492
+University of Houston-Victoria, 3.0, 930, 5830
+The University of Texas at Brownsville, 3.09, 980, 5994
