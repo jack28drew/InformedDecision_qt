@@ -16,13 +16,15 @@
 #include <QFile>
 #include <QList>
 #include <QTableWidget>
+#include <QObject>
 
 class InformedDecision : public QWidget {
+    Q_OBJECT
 public:
     explicit InformedDecision(QWidget *parent = 0);
 
-signals:
 public slots:
+    void createOutputWidget(QString);
 
 private:
     QVBoxLayout *mainLayout;
@@ -40,13 +42,8 @@ private:
     QPushButton *okButton;
     QPushButton *cancelButton;
     QTableWidget *universityList;
-
-    struct universityInfo {
-        QString name;
-        double gpa;
-        int sat;
-        int tuition;
-    };
+    QListWidget *majorsList;
+    QLabel *majorsLabel;
 
     void createStudentTypeWidget();
     void createGPAWidget();
@@ -55,6 +52,8 @@ private:
     void createHobbiesWidget();
     void createButtons();
     void createUniversityList();
+    void createMajorsList();
+    void okButtonPressed();
 
     void createLayout();
 };

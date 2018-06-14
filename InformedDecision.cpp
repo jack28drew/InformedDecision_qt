@@ -2,7 +2,6 @@
 
 InformedDecision::InformedDecision(QWidget *parent) : QWidget(parent) {
     setWindowTitle("InformedDecision");
-    resize(500, 500);
     createLayout();
     setLayout(mainLayout);
 }
@@ -80,14 +79,14 @@ void InformedDecision::createUniversityList() {
     file.open(QIODevice::ReadOnly);
 
     QStringList columnNames;
-    columnNames << "University" << "GPA" << "SAT Score" << "Tuition";
+    columnNames << "University" << "GPA" << "SAT" << "Tuition";
 
     universityList = new QTableWidget;
     universityList->setColumnCount(4);
-    universityList->setColumnWidth(1,"");
-    universityList->setColumnWidth(2,"");
-    universityList->setColumnWidth(3,"");
-    universityList->setColumnWidth(0,"");
+    universityList->setColumnWidth(1, 60);
+    universityList->setColumnWidth(2, 75);
+    universityList->setColumnWidth(3, 75);
+    universityList->setColumnWidth(0, 220);
     universityList->setHorizontalHeaderLabels(columnNames);
 
     while(!file.atEnd()) {
@@ -98,6 +97,46 @@ void InformedDecision::createUniversityList() {
         universityList->setItem(universityList->rowCount()-1, 1, new QTableWidgetItem(info[1]));
         universityList->setItem(universityList->rowCount()-1, 2, new QTableWidgetItem(info[2]));
         universityList->setItem(universityList->rowCount()-1, 3, new QTableWidgetItem(info[3]));
+    }
+    mainLayout->addWidget(universityList);
+}
+
+void InformedDecision::createMajorsList() {
+    QFile file("majors.txt");
+    file.open(QIODevice::ReadOnly);
+
+    QStringList majors;
+
+    while(!file.atEnd()) {
+        QString line = file.readLine();
+        majors << line;
+    }
+
+    majorsList = new QListWidget;
+    majorsList->addItems(majors);
+
+    majorsLabel = new QLabel;
+    majorsLabel->setText("Suggested Majors");
+
+    QHBoxLayout *majorsLayout = new QHBoxLayout;
+    majorsLayout->addWidget(majorsLabel);
+    majorsLayout->addWidget(majorsList);
+    mainLayout->addLayout(majorsLayout);
+}
+
+void InformedDecision::okButtonPressed() {
+    QString input = studentType->currentText();
+    QObject::connect(okButton, SIGNAL(clicked()), this, SLOT(createOutputWidget(input)));
+}
+
+void InformedDecision::createOutputWidget(QString input) {
+    if(input == "High School Student") {
+        this->resize(500, 500);
+        createUniversityList();
+    }
+
+    else if(input == "University Freshman" || input == "University Sophomore") {
+        createMajorsList();
     }
 }
 
@@ -140,13 +179,9 @@ void InformedDecision::createLayout() {
     bottomRow->addLayout(hobbiesLayout);
     bottomRow->addLayout(buttonLayout);
 
-    createUniversityList();
-
-
     mainLayout->addLayout(studentTypeLayout);
     mainLayout->addLayout(gpaLayout);
     mainLayout->addLayout(satLayout);
     mainLayout->addLayout(fundsLayout);
     mainLayout->addLayout(bottomRow);
-    mainLayout->addWidget(universityList);
 }
