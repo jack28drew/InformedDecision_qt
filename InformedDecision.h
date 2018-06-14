@@ -15,7 +15,7 @@
 #include <QPushButton>
 #include <QFile>
 #include <QList>
-#include <QTreeWidget>
+#include <QTableWidget>
 
 class InformedDecision : public QWidget {
 public:
@@ -39,7 +39,7 @@ private:
     QLabel *hobbiesLabel;
     QPushButton *okButton;
     QPushButton *cancelButton;
-    QTreeWidget *universityTable;
+    QTableWidget *universityList;
 
     struct universityInfo {
         QString name;

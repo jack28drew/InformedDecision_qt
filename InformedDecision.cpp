@@ -2,6 +2,7 @@
 
 InformedDecision::InformedDecision(QWidget *parent) : QWidget(parent) {
     setWindowTitle("InformedDecision");
+    resize(500, 500);
     createLayout();
     setLayout(mainLayout);
 }
@@ -78,23 +79,26 @@ void InformedDecision::createUniversityList() {
     QFile file("universities.txt");
     file.open(QIODevice::ReadOnly);
 
-    QList<universityInfo> universityList;
+    QStringList columnNames;
+    columnNames << "University" << "GPA" << "SAT Score" << "Tuition";
+
+    universityList = new QTableWidget;
+    universityList->setColumnCount(4);
+    universityList->setColumnWidth(1,"");
+    universityList->setColumnWidth(2,"");
+    universityList->setColumnWidth(3,"");
+    universityList->setColumnWidth(0,"");
+    universityList->setHorizontalHeaderLabels(columnNames);
 
     while(!file.atEnd()) {
         QString line = file.readLine();
         QStringList info = line.split(',');
-
-        universityInfo newUni;
-        newUni.name = info[0];
-        newUni.gpa = info[1].toDouble();
-        newUni.sat = info[2].toInt();
-        newUni.tuition = info[3].toInt();
-
-        universityList.append(newUni);
+        universityList->insertRow(universityList->rowCount());
+        universityList->setItem(universityList->rowCount()-1, 0, new QTableWidgetItem(info[0]));
+        universityList->setItem(universityList->rowCount()-1, 1, new QTableWidgetItem(info[1]));
+        universityList->setItem(universityList->rowCount()-1, 2, new QTableWidgetItem(info[2]));
+        universityList->setItem(universityList->rowCount()-1, 3, new QTableWidgetItem(info[3]));
     }
-
-    universityTable = new QTreeWidget;
-    universityTable->addTopLevelItems(universityList);
 }
 
 void InformedDecision::createLayout() {
@@ -136,10 +140,13 @@ void InformedDecision::createLayout() {
     bottomRow->addLayout(hobbiesLayout);
     bottomRow->addLayout(buttonLayout);
 
+    createUniversityList();
+
 
     mainLayout->addLayout(studentTypeLayout);
     mainLayout->addLayout(gpaLayout);
     mainLayout->addLayout(satLayout);
     mainLayout->addLayout(fundsLayout);
     mainLayout->addLayout(bottomRow);
+    mainLayout->addWidget(universityList);
 }
