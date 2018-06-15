@@ -16,7 +16,6 @@
 #include <QFile>
 #include <QList>
 #include <QTableWidget>
-#include <QObject>
 
 class InformedDecision : public QWidget {
     Q_OBJECT
@@ -24,10 +23,12 @@ public:
     explicit InformedDecision(QWidget *parent = 0);
 
 public slots:
-    void createOutputWidget(QString);
+    void createOutputWidget();
 
 private:
     QVBoxLayout *mainLayout;
+    QHBoxLayout *majorsLayout;
+
     QComboBox *studentType;
     QLabel *studentTypeLabel;
     QDoubleSpinBox *gpaSpinBox;

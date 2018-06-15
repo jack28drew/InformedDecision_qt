@@ -4,6 +4,8 @@ InformedDecision::InformedDecision(QWidget *parent) : QWidget(parent) {
     setWindowTitle("InformedDecision");
     createLayout();
     setLayout(mainLayout);
+    majorsLayout = NULL;
+    universityList = NULL;
 }
 
 void InformedDecision::createStudentTypeWidget() {
@@ -98,7 +100,6 @@ void InformedDecision::createUniversityList() {
         universityList->setItem(universityList->rowCount()-1, 2, new QTableWidgetItem(info[2]));
         universityList->setItem(universityList->rowCount()-1, 3, new QTableWidgetItem(info[3]));
     }
-    mainLayout->addWidget(universityList);
 }
 
 void InformedDecision::createMajorsList() {
@@ -109,7 +110,7 @@ void InformedDecision::createMajorsList() {
 
     while(!file.atEnd()) {
         QString line = file.readLine();
-        majors << line;
+        majors << line.simplified();
     }
 
     majorsList = new QListWidget;
@@ -117,26 +118,44 @@ void InformedDecision::createMajorsList() {
 
     majorsLabel = new QLabel;
     majorsLabel->setText("Suggested Majors");
-
-    QHBoxLayout *majorsLayout = new QHBoxLayout;
-    majorsLayout->addWidget(majorsLabel);
-    majorsLayout->addWidget(majorsList);
-    mainLayout->addLayout(majorsLayout);
 }
 
 void InformedDecision::okButtonPressed() {
-    QString input = studentType->currentText();
-    QObject::connect(okButton, SIGNAL(clicked()), this, SLOT(createOutputWidget(input)));
+    QObject::connect(okButton, SIGNAL(clicked()), this, SLOT(createOutputWidget()));
 }
 
-void InformedDecision::createOutputWidget(QString input) {
+void InformedDecision::createOutputWidget() {
+    QString input = studentType->currentText();
     if(input == "High School Student") {
-        this->resize(500, 500);
+        if(majorsLayout) {
+            majorsLayout->removeWidget(majorsList);
+            majorsLayout->removeWidget(majorsLabel);
+            mainLayout->removeItem(majorsLayout);
+            delete majorsList;
+            majorsList = NULL;
+            delete majorsLabel;
+            majorsLabel = NULL;
+            delete majorsLayout;
+            majorsLayout = NULL;
+
+        }
+        this->resize(500, 600);
         createUniversityList();
+        mainLayout->addWidget(universityList);
     }
 
     else if(input == "University Freshman" || input == "University Sophomore") {
+        if(universityList) {
+            mainLayout->removeWidget(universityList);
+            delete universityList;
+            universityList = 0;
+        }
+        this->resize(433, 600);
+        majorsLayout = new QHBoxLayout;
         createMajorsList();
+        majorsLayout->addWidget(majorsLabel);
+        majorsLayout->addWidget(majorsList);
+        mainLayout->addLayout(majorsLayout);
     }
 }
 
@@ -184,4 +203,6 @@ void InformedDecision::createLayout() {
     mainLayout->addLayout(satLayout);
     mainLayout->addLayout(fundsLayout);
     mainLayout->addLayout(bottomRow);
+
+    okButtonPressed();
 }
